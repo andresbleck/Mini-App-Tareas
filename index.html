@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestor de Tareas</title>
+</head>
+<body>
+  <h1>Agregar Tarea</h1>
+  <input type="text" id="tareaInput" placeholder="Escribe una tarea" />
+  <button onclick="agregarTarea()">Agregar</button>
+  <p id="mensaje"></p>
+
+  <script>
+    async function agregarTarea() {
+      const tarea = document.getElementById("tareaInput").value;
+
+      const respuesta = await fetch("http://localhost:3000/agregar_tarea", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ tarea })
+      });
+
+      const resultado = await respuesta.text();
+      document.getElementById("mensaje").innerText = resultado;
+    }
+  </script>
+</body>
+</html>
